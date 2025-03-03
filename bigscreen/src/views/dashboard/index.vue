@@ -351,7 +351,16 @@ import * as echarts from "echarts";
 import { useIntervalFn } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import "echarts-liquidfill";
-import { Monitor, Cpu, SwitchButton, Odometer } from "@element-plus/icons-vue";
+import {
+  Cpu,
+  Monitor,
+  Connection,
+  CircleCheck,
+  Setting,
+  Stopwatch,
+  Switch,
+  DataLine,
+} from "@element-plus/icons-vue";
 
 const router = useRouter();
 
@@ -481,7 +490,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "水泵A",
     status: "normal",
-    icon: Odometer,
+    icon: Connection,
     runtime: "1234.5h",
     load: "85%",
     maintenance: "正常",
@@ -490,7 +499,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "水泵B",
     status: "warning",
-    icon: Odometer,
+    icon: Connection,
     runtime: "892.3h",
     load: "92%",
     maintenance: "需检查",
@@ -499,7 +508,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "阀门1",
     status: "normal",
-    icon: SwitchButton,
+    icon: Switch,
     runtime: "2156.7h",
     load: "75%",
     maintenance: "正常",
@@ -508,7 +517,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "阀门2",
     status: "error",
-    icon: SwitchButton,
+    icon: Switch,
     runtime: "1678.2h",
     load: "0%",
     maintenance: "故障",
@@ -517,7 +526,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "传感器1",
     status: "normal",
-    icon: Cpu,
+    icon: DataLine,
     runtime: "3567.8h",
     load: "88%",
     maintenance: "正常",
@@ -526,7 +535,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "传感器2",
     status: "warning",
-    icon: Cpu,
+    icon: DataLine,
     runtime: "2890.4h",
     load: "79%",
     maintenance: "需校准",
@@ -535,7 +544,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "控制器1",
     status: "normal",
-    icon: Monitor,
+    icon: Setting,
     runtime: "4521.6h",
     load: "82%",
     maintenance: "正常",
@@ -544,7 +553,7 @@ const deviceList = ref<DeviceData[]>([
   {
     name: "控制器2",
     status: "normal",
-    icon: Monitor,
+    icon: Setting,
     runtime: "3789.2h",
     load: "86%",
     maintenance: "正常",
@@ -1952,6 +1961,10 @@ const updateCharts = () => {
         transform: translateY(-2px);
         border-color: rgba(0, 255, 255, 0.5);
         box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+
+        .icon {
+          transform: scale(1.1);
+        }
       }
 
       &:active {
@@ -1959,8 +1972,12 @@ const updateCharts = () => {
       }
 
       .icon {
-        font-size: 32px;
+        font-size: 36px;
         color: #00ffff;
+        transition: all 0.3s ease;
+        padding: 10px;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.1);
       }
 
       .name {
@@ -1986,6 +2003,7 @@ const updateCharts = () => {
         border-color: rgba(0, 255, 0, 0.3);
         .icon {
           color: #00ff00;
+          background: rgba(0, 255, 0, 0.1);
         }
       }
 
@@ -1993,6 +2011,7 @@ const updateCharts = () => {
         border-color: rgba(255, 255, 0, 0.3);
         .icon {
           color: #ffff00;
+          background: rgba(255, 255, 0, 0.1);
         }
       }
 
@@ -2000,6 +2019,7 @@ const updateCharts = () => {
         border-color: rgba(255, 0, 0, 0.3);
         .icon {
           color: #ff0000;
+          background: rgba(255, 0, 0, 0.1);
         }
       }
     }
