@@ -1079,14 +1079,22 @@ const initCodChart = () => {
   if (!codChart.value) return;
   const chart = echarts.init(codChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
+      axisPointer: {
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
+      },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -1170,23 +1178,22 @@ const initGasChart = () => {
   if (!gasChart.value) return;
   const chart = echarts.init(gasChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "shadow",
-      },
-    },
-    legend: {
-      data: ["甲烷", "一氧化碳", "硫化氢", "氧气"],
-      textStyle: {
-        color: "#fff",
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
       },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -1326,23 +1333,22 @@ const initPowerChart = () => {
   if (!powerChart.value) return;
   const chart = echarts.init(powerChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "shadow",
-      },
-    },
-    legend: {
-      data: ["日用电量"],
-      textStyle: {
-        color: "#fff",
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
       },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -2116,27 +2122,13 @@ const updateCharts = () => {
     }
   }
 
-  .nh3n-chart {
+  .nh3n-chart,
+  .cod-chart,
+  .gas-chart,
+  .power-chart {
     height: 300px;
     margin: 20px 0;
 
-    .chart {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .cod-chart {
-    height: 200px;
-    .chart {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .gas-chart,
-  .power-chart {
-    height: 200px;
     .chart {
       width: 100%;
       height: 100%;
