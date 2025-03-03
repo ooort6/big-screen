@@ -1796,6 +1796,20 @@ const updateCharts = () => {
       margin-bottom: 15px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      :deep(.el-button) {
+        padding: 0;
+        height: auto;
+        font-size: 14px;
+        color: rgba(0, 255, 255, 0.8);
+
+        &:hover {
+          color: #00ffff;
+        }
+      }
     }
 
     .chart-container {
