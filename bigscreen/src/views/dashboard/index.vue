@@ -43,28 +43,6 @@
 
       <!-- 中间面板 -->
       <div class="center-panel panel">
-        <!-- 设备状态 -->
-        <div class="chart-card">
-          <div class="card-header">设备状态</div>
-          <div class="device-grid">
-            <div
-              v-for="(device, index) in deviceList"
-              :key="index"
-              class="device-item"
-              :class="device.status"
-              @click="handleDeviceClick(device)"
-            >
-              <component :is="device.icon" class="icon" />
-              <span class="name">{{ device.name }}</span>
-              <div class="device-info">
-                <span>运行: {{ device.runtime }}</span>
-                <span>负载: {{ device.load }}</span>
-                <span>维护: {{ device.maintenance }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 环境数据 -->
         <div class="chart-card">
           <div class="card-header">
@@ -162,6 +140,28 @@
           </div>
           <div class="nh3n-chart">
             <div ref="nh3nChart" class="chart"></div>
+          </div>
+        </div>
+
+        <!-- 设备状态 -->
+        <div class="chart-card">
+          <div class="card-header">设备状态</div>
+          <div class="device-grid">
+            <div
+              v-for="(device, index) in deviceList"
+              :key="index"
+              class="device-item"
+              :class="device.status"
+              @click="handleDeviceClick(device)"
+            >
+              <component :is="device.icon" class="icon" />
+              <span class="name">{{ device.name }}</span>
+              <div class="device-info">
+                <span>运行: {{ device.runtime }}</span>
+                <span>负载: {{ device.load }}</span>
+                <span>维护: {{ device.maintenance }}</span>
+              </div>
+            </div>
           </div>
         </div>
 
