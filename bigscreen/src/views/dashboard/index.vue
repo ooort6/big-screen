@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="header">
-      <div class="title">环境监测管理平台1</div>
+      <div class="title">环境监测管理平台</div>
       <div class="time">{{ currentTime }}</div>
     </div>
 
