@@ -52,14 +52,14 @@ const router = createRouter({
       ],
     },
     {
-      path: "/detail",
+      path: "/device-detail",
       component: Layout,
       children: [
         {
           path: "",
-          name: "Detail",
-          component: () => import("@/views/detail/index.vue"),
-          meta: { title: "详情", requiresAuth: true },
+          name: "DeviceDetail",
+          component: () => import("@/views/device-detail/index.vue"),
+          meta: { title: "设备详情", requiresAuth: true },
         },
       ],
     },

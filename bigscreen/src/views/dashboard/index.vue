@@ -52,6 +52,7 @@
               :key="index"
               class="device-item"
               :class="device.status"
+              @click="handleDeviceClick(device)"
             >
               <component :is="device.icon" class="icon" />
               <span class="name">{{ device.name }}</span>
@@ -469,84 +470,84 @@ const stationList = ref<StationData[]>([
 interface DeviceData {
   name: string;
   status: string;
-  icon: string;
+  icon: any;
   runtime: string;
   load: string;
   maintenance: string;
-  efficiency: string;
+  efficiency?: string;
 }
 
 const deviceList = ref<DeviceData[]>([
   {
     name: "水泵A",
     status: "normal",
+    icon: Odometer,
     runtime: "1234.5h",
     load: "85%",
     maintenance: "正常",
-    icon: "Odometer",
     efficiency: "85%",
   },
   {
     name: "水泵B",
     status: "warning",
+    icon: Odometer,
     runtime: "892.3h",
     load: "92%",
     maintenance: "需检查",
-    icon: "Odometer",
     efficiency: "92%",
   },
   {
     name: "阀门1",
     status: "normal",
+    icon: SwitchButton,
     runtime: "2156.7h",
     load: "75%",
     maintenance: "正常",
-    icon: "SwitchButton",
     efficiency: "75%",
   },
   {
     name: "阀门2",
     status: "error",
+    icon: SwitchButton,
     runtime: "1678.2h",
     load: "0%",
     maintenance: "故障",
-    icon: "SwitchButton",
     efficiency: "0%",
   },
   {
     name: "传感器1",
     status: "normal",
+    icon: Cpu,
     runtime: "3567.8h",
     load: "88%",
     maintenance: "正常",
-    icon: "Cpu",
     efficiency: "88%",
   },
   {
     name: "传感器2",
     status: "warning",
+    icon: Cpu,
     runtime: "2890.4h",
     load: "79%",
     maintenance: "需校准",
-    icon: "Cpu",
     efficiency: "79%",
   },
   {
     name: "控制器1",
     status: "normal",
+    icon: Monitor,
     runtime: "4521.6h",
     load: "82%",
     maintenance: "正常",
-    icon: "Monitor",
     efficiency: "82%",
   },
   {
     name: "控制器2",
     status: "normal",
+    icon: Monitor,
     runtime: "3789.2h",
     load: "86%",
     maintenance: "正常",
-    icon: "Monitor",
     efficiency: "86%",
   },
 ]);
@@ -685,6 +686,55 @@ const showNh3nDetail = () => {
   router.push("/detail?type=nh3n");
 };
 
+// 设备点击处理
+const handleDeviceClick = (device: DeviceData) => {
+  let type = getDeviceType(device.name);
+  let detailType = "";
+
+  // 根据设备类型设置不同的详情类型
+  switch (type) {
+    case "pump":
+      detailType = "pump-detail";
+      break;
+    case "valve":
+      detailType = "valve-detail";
+      break;
+    case "sensor":
+      detailType = "sensor-detail";
+      break;
+    case "controller":
+      detailType = "controller-detail";
+      break;
+  }
+
+  router.push({
+    path: "/device-detail",
+    query: {
+      type: type,
+      detailType: detailType,
+      name: device.name,
+      status: device.status,
+      runtime: device.runtime,
+      load: device.load,
+      maintenance: device.maintenance,
+      efficiency: device.efficiency || "85%",
+    },
+  });
+};
+
+const getDeviceType = (name: string): string => {
+  if (name.includes("泵") || name.includes("水泵")) {
+    return "pump";
+  }
+  if (name.includes("阀")) {
+    return "valve";
+  }
+  if (name.includes("传感器") || name.includes("探头")) {
+    return "sensor";
+  }
+  return "controller";
+};
+
 // 初始化图表方法
 const initTempHumidityChart = () => {
   if (!tempHumidityChart.value) return;
@@ -719,6 +769,10 @@ const initTempHumidityChart = () => {
         lineStyle: {
           color: "#fff",
         },
+      },
+      axisLabel: {
+        color: "#fff",
+        fontSize: 10,
       },
     },
     yAxis: [
@@ -1878,50 +1932,75 @@ const updateCharts = () => {
 
   .device-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
 
     .device-item {
       background: rgba(0, 30, 60, 0.3);
-      padding: 15px;
+      border: 1px solid rgba(0, 255, 255, 0.1);
       border-radius: 8px;
-      text-align: center;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
       transition: all 0.3s ease;
 
       &:hover {
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        border-color: rgba(0, 255, 255, 0.5);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
 
       .icon {
-        font-size: 24px;
-        margin-bottom: 10px;
+        font-size: 32px;
         color: #00ffff;
       }
 
       .name {
-        font-size: 14px;
-        margin-bottom: 5px;
+        font-size: 16px;
+        color: #fff;
       }
 
       .device-info {
-        font-size: 12px;
-        color: #999;
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 5px;
+        font-size: 12px;
+        color: #999;
+
+        span {
+          display: block;
+          text-align: center;
+        }
       }
 
       &.normal {
-        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-color: rgba(0, 255, 0, 0.3);
+        .icon {
+          color: #00ff00;
+        }
       }
 
       &.warning {
-        border: 1px solid rgba(255, 255, 0, 0.3);
+        border-color: rgba(255, 255, 0, 0.3);
+        .icon {
+          color: #ffff00;
+        }
       }
 
       &.error {
-        border: 1px solid rgba(255, 0, 0, 0.3);
+        border-color: rgba(255, 0, 0, 0.3);
+        .icon {
+          color: #ff0000;
+        }
       }
     }
   }
