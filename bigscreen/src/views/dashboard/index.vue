@@ -973,14 +973,22 @@ const initNh3nChart = () => {
   if (!nh3nChart.value) return;
   const chart = echarts.init(nh3nChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
+      axisPointer: {
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
+      },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -989,31 +997,38 @@ const initNh3nChart = () => {
       data: Array.from({ length: 60 }, (_, i) => `${i}s`),
       axisLine: {
         lineStyle: {
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255, 255, 255, 0.5)",
         },
       },
       axisLabel: {
-        fontSize: 10,
+        fontSize: 12,
+        color: "rgba(255, 255, 255, 0.7)",
       },
     },
     yAxis: {
       type: "value",
-      name: "浓度",
+      name: "浓度(mg/L)",
       nameTextStyle: {
-        color: "rgba(255,255,255,0.5)",
+        color: "rgba(255, 255, 255, 0.7)",
+        fontSize: 12,
+        padding: [0, 30, 0, 0],
       },
       axisLine: {
+        show: true,
         lineStyle: {
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255, 255, 255, 0.5)",
         },
       },
       splitLine: {
         lineStyle: {
-          color: "rgba(255,255,255,0.1)",
+          color: "rgba(255, 255, 255, 0.1)",
+          type: "dashed",
         },
       },
       axisLabel: {
-        fontSize: 10,
+        fontSize: 12,
+        color: "rgba(255, 255, 255, 0.7)",
+        formatter: "{value}",
       },
     },
     series: [
@@ -1029,11 +1044,11 @@ const initNh3nChart = () => {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: "rgba(255,165,2,0.3)",
+              color: "rgba(255, 165, 2, 0.3)",
             },
             {
               offset: 1,
-              color: "rgba(255,165,2,0)",
+              color: "rgba(255, 165, 2, 0)",
             },
           ]),
         },
@@ -2101,7 +2116,16 @@ const updateCharts = () => {
     }
   }
 
-  .nh3n-chart,
+  .nh3n-chart {
+    height: 300px;
+    margin: 20px 0;
+
+    .chart {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .cod-chart {
     height: 200px;
     .chart {
