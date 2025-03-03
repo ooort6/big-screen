@@ -43,6 +43,84 @@
 
       <!-- 中间面板 -->
       <div class="center-panel panel">
+        <!-- 设备状态 -->
+        <div class="chart-card">
+          <div class="card-header">设备状态</div>
+          <div class="device-grid">
+            <div
+              v-for="(device, index) in deviceList"
+              :key="index"
+              class="device-item"
+              :class="device.status"
+            >
+              <component :is="device.icon" class="icon" />
+              <span class="name">{{ device.name }}</span>
+              <div class="device-info">
+                <span>运行: {{ device.runtime }}</span>
+                <span>负载: {{ device.load }}</span>
+                <span>维护: {{ device.maintenance }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 环境数据 -->
+        <div class="chart-card">
+          <div class="card-header">
+            <span>实时环境数据</span>
+            <el-button type="text" @click="router.push(`/detail?type=env`)"
+              >详情</el-button
+            >
+          </div>
+          <div class="env-data-grid">
+            <div class="data-item">
+              <div class="label">温度</div>
+              <div class="value">{{ envData.temperature }}°C</div>
+            </div>
+            <div class="data-item">
+              <div class="label">湿度</div>
+              <div class="value">{{ envData.humidity }}%</div>
+            </div>
+            <div class="data-item">
+              <div class="label">水位</div>
+              <div class="value">{{ envData.waterLevel }}m</div>
+            </div>
+            <div class="data-item">
+              <div class="label">气压</div>
+              <div class="value">{{ envData.pressure }}kPa</div>
+            </div>
+            <div class="data-item">
+              <div class="label">风速</div>
+              <div class="value">{{ envData.windSpeed }}m/s</div>
+            </div>
+            <div class="data-item">
+              <div class="label">降雨量</div>
+              <div class="value">{{ envData.rainfall }}mm</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 水位监测 -->
+        <div class="chart-card">
+          <div class="card-header">
+            <span>水位监测</span>
+            <el-button type="text" @click="router.push(`/detail?type=water`)"
+              >详情</el-button
+            >
+          </div>
+          <div class="water-level-grid">
+            <div
+              v-for="(level, index) in waterLevels"
+              :key="index"
+              class="data-item"
+            >
+              <div class="label">探头 {{ index + 1 }}</div>
+              <div class="value" :class="level.status">{{ level.value }}m</div>
+              <div class="status-text">{{ level.statusText }}</div>
+            </div>
+          </div>
+        </div>
+
         <!-- 氨氮检测 -->
         <div class="chart-card">
           <div class="card-header">
@@ -126,84 +204,6 @@
           </div>
           <div class="cod-chart">
             <div ref="codChart" class="chart"></div>
-          </div>
-        </div>
-
-        <!-- 设备状态 -->
-        <div class="chart-card">
-          <div class="card-header">设备状态</div>
-          <div class="device-grid">
-            <div
-              v-for="(device, index) in deviceList"
-              :key="index"
-              class="device-item"
-              :class="device.status"
-            >
-              <component :is="device.icon" class="icon" />
-              <span class="name">{{ device.name }}</span>
-              <div class="device-info">
-                <span>运行: {{ device.runtime }}</span>
-                <span>负载: {{ device.load }}</span>
-                <span>维护: {{ device.maintenance }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 环境数据 -->
-        <div class="chart-card">
-          <div class="card-header">
-            <span>实时环境数据</span>
-            <el-button type="text" @click="router.push(`/detail?type=env`)"
-              >详情</el-button
-            >
-          </div>
-          <div class="env-data-grid">
-            <div class="data-item">
-              <div class="label">温度</div>
-              <div class="value">{{ envData.temperature }}°C</div>
-            </div>
-            <div class="data-item">
-              <div class="label">湿度</div>
-              <div class="value">{{ envData.humidity }}%</div>
-            </div>
-            <div class="data-item">
-              <div class="label">水位</div>
-              <div class="value">{{ envData.waterLevel }}m</div>
-            </div>
-            <div class="data-item">
-              <div class="label">气压</div>
-              <div class="value">{{ envData.pressure }}kPa</div>
-            </div>
-            <div class="data-item">
-              <div class="label">风速</div>
-              <div class="value">{{ envData.windSpeed }}m/s</div>
-            </div>
-            <div class="data-item">
-              <div class="label">降雨量</div>
-              <div class="value">{{ envData.rainfall }}mm</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 水位监测 -->
-        <div class="chart-card">
-          <div class="card-header">
-            <span>水位监测</span>
-            <el-button type="text" @click="router.push(`/detail?type=water`)"
-              >详情</el-button
-            >
-          </div>
-          <div class="water-level-grid">
-            <div
-              v-for="(level, index) in waterLevels"
-              :key="index"
-              class="data-item"
-            >
-              <div class="label">探头 {{ index + 1 }}</div>
-              <div class="value" :class="level.status">{{ level.value }}m</div>
-              <div class="status-text">{{ level.statusText }}</div>
-            </div>
           </div>
         </div>
 
