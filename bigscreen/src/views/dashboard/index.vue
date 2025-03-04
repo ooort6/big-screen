@@ -583,6 +583,14 @@ const deviceList = ref<DeviceData[]>([
     load: "95%",
     maintenance: "需检查",
   },
+  {
+    name: "控制器4",
+    status: "normal",
+    icon: Setting,
+    runtime: "1678.9h",
+    load: "88%",
+    maintenance: "正常",
+  },
 ]);
 
 // 环境数据
