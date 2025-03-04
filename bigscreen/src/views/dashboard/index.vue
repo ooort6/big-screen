@@ -494,7 +494,6 @@ const deviceList = ref<DeviceData[]>([
     runtime: "1234.5h",
     load: "85%",
     maintenance: "正常",
-    efficiency: "85%",
   },
   {
     name: "水泵B",
@@ -503,7 +502,14 @@ const deviceList = ref<DeviceData[]>([
     runtime: "892.3h",
     load: "92%",
     maintenance: "需检查",
-    efficiency: "92%",
+  },
+  {
+    name: "水泵C",
+    status: "normal",
+    icon: Connection,
+    runtime: "1567.8h",
+    load: "78%",
+    maintenance: "正常",
   },
   {
     name: "阀门1",
@@ -512,7 +518,6 @@ const deviceList = ref<DeviceData[]>([
     runtime: "2156.7h",
     load: "75%",
     maintenance: "正常",
-    efficiency: "75%",
   },
   {
     name: "阀门2",
@@ -521,7 +526,14 @@ const deviceList = ref<DeviceData[]>([
     runtime: "1678.2h",
     load: "0%",
     maintenance: "故障",
-    efficiency: "0%",
+  },
+  {
+    name: "阀门3",
+    status: "normal",
+    icon: Switch,
+    runtime: "986.5h",
+    load: "82%",
+    maintenance: "正常",
   },
   {
     name: "传感器1",
@@ -530,7 +542,6 @@ const deviceList = ref<DeviceData[]>([
     runtime: "3567.8h",
     load: "88%",
     maintenance: "正常",
-    efficiency: "88%",
   },
   {
     name: "传感器2",
@@ -539,7 +550,14 @@ const deviceList = ref<DeviceData[]>([
     runtime: "2890.4h",
     load: "79%",
     maintenance: "需校准",
-    efficiency: "79%",
+  },
+  {
+    name: "传感器3",
+    status: "normal",
+    icon: DataLine,
+    runtime: "1234.5h",
+    load: "91%",
+    maintenance: "正常",
   },
   {
     name: "控制器1",
@@ -548,7 +566,6 @@ const deviceList = ref<DeviceData[]>([
     runtime: "4521.6h",
     load: "82%",
     maintenance: "正常",
-    efficiency: "82%",
   },
   {
     name: "控制器2",
@@ -557,7 +574,14 @@ const deviceList = ref<DeviceData[]>([
     runtime: "3789.2h",
     load: "86%",
     maintenance: "正常",
-    efficiency: "86%",
+  },
+  {
+    name: "控制器3",
+    status: "warning",
+    icon: Setting,
+    runtime: "2345.7h",
+    load: "95%",
+    maintenance: "需检查",
   },
 ]);
 
@@ -1941,19 +1965,21 @@ const updateCharts = () => {
 
   .device-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(min-content, auto);
+    gap: 12px;
+    padding: 15px;
+    min-height: 200px;
 
     .device-item {
       background: rgba(0, 30, 60, 0.3);
       border: 1px solid rgba(0, 255, 255, 0.1);
       border-radius: 8px;
-      padding: 15px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
 
@@ -1972,30 +1998,38 @@ const updateCharts = () => {
       }
 
       .icon {
-        font-size: 36px;
-        color: #00ffff;
-        transition: all 0.3s ease;
+        font-size: 28px;
         padding: 10px;
         border-radius: 50%;
         background: rgba(0, 255, 255, 0.1);
+        color: #00ffff;
+        transition: all 0.3s ease;
       }
 
       .name {
-        font-size: 16px;
+        font-size: 14px;
         color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-align: center;
       }
 
       .device-info {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 4px;
         font-size: 12px;
         color: #999;
 
         span {
           display: block;
           text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
