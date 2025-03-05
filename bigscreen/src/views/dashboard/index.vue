@@ -43,113 +43,6 @@
 
       <!-- 中间面板 -->
       <div class="center-panel panel">
-        <!-- 氨氮检测 -->
-        <div class="chart-card">
-          <div class="card-header">
-            <span>氨氮检测</span>
-            <el-button type="text" @click="router.push(`/detail?type=nh3n`)"
-              >详情</el-button
-            >
-          </div>
-          <div class="monitor-grid">
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.nh3n }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">实时浓度</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.nh3nMax }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">今日最高</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.nh3nMin }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">今日最低</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.nh3nAvg }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">平均值</div>
-            </div>
-          </div>
-          <div class="nh3n-chart">
-            <div ref="nh3nChart" class="chart"></div>
-          </div>
-        </div>
-
-        <!-- COD检测 -->
-        <div class="chart-card">
-          <div class="card-header">
-            <span>COD检测</span>
-            <el-button type="text" @click="router.push(`/detail?type=cod`)"
-              >详情</el-button
-            >
-          </div>
-          <div class="monitor-grid">
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.cod }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">实时浓度</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.codMax }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">今日最高</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.codMin }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">今日最低</div>
-            </div>
-            <div class="data-box">
-              <div class="current-value">
-                <span class="value">{{ monitorData.codAvg }}</span>
-                <span class="unit">mg/L</span>
-              </div>
-              <div class="label">平均值</div>
-            </div>
-          </div>
-          <div class="cod-chart">
-            <div ref="codChart" class="chart"></div>
-          </div>
-        </div>
-
-        <!-- 设备状态 -->
-        <div class="chart-card">
-          <div class="card-header">设备状态</div>
-          <div class="device-grid">
-            <div
-              v-for="(device, index) in deviceList"
-              :key="index"
-              class="device-item"
-              :class="device.status"
-            >
-              <component :is="device.icon" class="icon" />
-              <span class="name">{{ device.name }}</span>
-              <div class="device-info">
-                <span>运行: {{ device.runtime }}</span>
-                <span>负载: {{ device.load }}</span>
-                <span>维护: {{ device.maintenance }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 环境数据 -->
         <div class="chart-card">
           <div class="card-header">
@@ -204,6 +97,114 @@
               <div class="value" :class="level.status">{{ level.value }}m</div>
               <div class="status-text">{{ level.statusText }}</div>
             </div>
+          </div>
+        </div>
+
+        <!-- 氨氮检测 -->
+        <div class="chart-card">
+          <div class="card-header">
+            <span>氨氮检测</span>
+            <el-button type="text" @click="router.push(`/detail?type=nh3n`)"
+              >详情</el-button
+            >
+          </div>
+          <div class="monitor-grid">
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.nh3n }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">实时浓度</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.nh3nMax }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">今日最高</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.nh3nMin }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">今日最低</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.nh3nAvg }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">平均值</div>
+            </div>
+          </div>
+          <div class="nh3n-chart">
+            <div ref="nh3nChart" class="chart"></div>
+          </div>
+        </div>
+
+        <!-- 设备状态 -->
+        <div class="chart-card">
+          <div class="card-header">设备状态</div>
+          <div class="device-grid">
+            <div
+              v-for="(device, index) in deviceList"
+              :key="index"
+              class="device-item"
+              :class="device.status"
+              @click="handleDeviceClick(device)"
+            >
+              <component :is="device.icon" class="icon" />
+              <span class="name">{{ device.name }}</span>
+              <div class="device-info">
+                <span>运行: {{ device.runtime }}</span>
+                <span>负载: {{ device.load }}</span>
+                <span>维护: {{ device.maintenance }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COD检测 -->
+        <div class="chart-card">
+          <div class="card-header">
+            <span>COD检测</span>
+            <el-button type="text" @click="router.push(`/detail?type=cod`)"
+              >详情</el-button
+            >
+          </div>
+          <div class="monitor-grid">
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.cod }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">实时浓度</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.codMax }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">今日最高</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.codMin }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">今日最低</div>
+            </div>
+            <div class="data-box">
+              <div class="current-value">
+                <span class="value">{{ monitorData.codAvg }}</span>
+                <span class="unit">mg/L</span>
+              </div>
+              <div class="label">平均值</div>
+            </div>
+          </div>
+          <div class="cod-chart">
+            <div ref="codChart" class="chart"></div>
           </div>
         </div>
 
@@ -350,7 +351,16 @@ import * as echarts from "echarts";
 import { useIntervalFn } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import "echarts-liquidfill";
-import { Monitor, Cpu, SwitchButton, Odometer } from "@element-plus/icons-vue";
+import {
+  Cpu,
+  Monitor,
+  Connection,
+  CircleCheck,
+  Setting,
+  Stopwatch,
+  Switch,
+  DataLine,
+} from "@element-plus/icons-vue";
 
 const router = useRouter();
 
@@ -469,85 +479,117 @@ const stationList = ref<StationData[]>([
 interface DeviceData {
   name: string;
   status: string;
-  icon: string;
+  icon: any;
   runtime: string;
   load: string;
   maintenance: string;
-  efficiency: string;
+  efficiency?: string;
 }
 
 const deviceList = ref<DeviceData[]>([
   {
     name: "水泵A",
     status: "normal",
+    icon: Connection,
     runtime: "1234.5h",
     load: "85%",
     maintenance: "正常",
-    icon: "Odometer",
-    efficiency: "85%",
   },
   {
     name: "水泵B",
     status: "warning",
+    icon: Connection,
     runtime: "892.3h",
     load: "92%",
     maintenance: "需检查",
-    icon: "Odometer",
-    efficiency: "92%",
+  },
+  {
+    name: "水泵C",
+    status: "normal",
+    icon: Connection,
+    runtime: "1567.8h",
+    load: "78%",
+    maintenance: "正常",
   },
   {
     name: "阀门1",
     status: "normal",
+    icon: Switch,
     runtime: "2156.7h",
     load: "75%",
     maintenance: "正常",
-    icon: "SwitchButton",
-    efficiency: "75%",
   },
   {
     name: "阀门2",
     status: "error",
+    icon: Switch,
     runtime: "1678.2h",
     load: "0%",
     maintenance: "故障",
-    icon: "SwitchButton",
-    efficiency: "0%",
+  },
+  {
+    name: "阀门3",
+    status: "normal",
+    icon: Switch,
+    runtime: "986.5h",
+    load: "82%",
+    maintenance: "正常",
   },
   {
     name: "传感器1",
     status: "normal",
+    icon: DataLine,
     runtime: "3567.8h",
     load: "88%",
     maintenance: "正常",
-    icon: "Cpu",
-    efficiency: "88%",
   },
   {
     name: "传感器2",
     status: "warning",
+    icon: DataLine,
     runtime: "2890.4h",
     load: "79%",
     maintenance: "需校准",
-    icon: "Cpu",
-    efficiency: "79%",
+  },
+  {
+    name: "传感器3",
+    status: "normal",
+    icon: DataLine,
+    runtime: "1234.5h",
+    load: "91%",
+    maintenance: "正常",
   },
   {
     name: "控制器1",
     status: "normal",
+    icon: Setting,
     runtime: "4521.6h",
     load: "82%",
     maintenance: "正常",
-    icon: "Monitor",
-    efficiency: "82%",
   },
   {
     name: "控制器2",
     status: "normal",
+    icon: Setting,
     runtime: "3789.2h",
     load: "86%",
     maintenance: "正常",
-    icon: "Monitor",
-    efficiency: "86%",
+  },
+  {
+    name: "控制器3",
+    status: "warning",
+    icon: Setting,
+    runtime: "2345.7h",
+    load: "95%",
+    maintenance: "需检查",
+  },
+  {
+    name: "控制器4",
+    status: "normal",
+    icon: Setting,
+    runtime: "1678.9h",
+    load: "88%",
+    maintenance: "正常",
   },
 ]);
 
@@ -685,6 +727,55 @@ const showNh3nDetail = () => {
   router.push("/detail?type=nh3n");
 };
 
+// 设备点击处理
+const handleDeviceClick = (device: DeviceData) => {
+  let type = getDeviceType(device.name);
+  let detailType = "";
+
+  // 根据设备类型设置不同的详情类型
+  switch (type) {
+    case "pump":
+      detailType = "pump-detail";
+      break;
+    case "valve":
+      detailType = "valve-detail";
+      break;
+    case "sensor":
+      detailType = "sensor-detail";
+      break;
+    case "controller":
+      detailType = "controller-detail";
+      break;
+  }
+
+  router.push({
+    path: "/device-detail",
+    query: {
+      type: type,
+      detailType: detailType,
+      name: device.name,
+      status: device.status,
+      runtime: device.runtime,
+      load: device.load,
+      maintenance: device.maintenance,
+      efficiency: device.efficiency || "85%",
+    },
+  });
+};
+
+const getDeviceType = (name: string): string => {
+  if (name.includes("泵") || name.includes("水泵")) {
+    return "pump";
+  }
+  if (name.includes("阀")) {
+    return "valve";
+  }
+  if (name.includes("传感器") || name.includes("探头")) {
+    return "sensor";
+  }
+  return "controller";
+};
+
 // 初始化图表方法
 const initTempHumidityChart = () => {
   if (!tempHumidityChart.value) return;
@@ -719,6 +810,10 @@ const initTempHumidityChart = () => {
         lineStyle: {
           color: "#fff",
         },
+      },
+      axisLabel: {
+        color: "#fff",
+        fontSize: 10,
       },
     },
     yAxis: [
@@ -973,14 +1068,22 @@ const initNh3nChart = () => {
   if (!nh3nChart.value) return;
   const chart = echarts.init(nh3nChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
+      axisPointer: {
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
+      },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -989,31 +1092,38 @@ const initNh3nChart = () => {
       data: Array.from({ length: 60 }, (_, i) => `${i}s`),
       axisLine: {
         lineStyle: {
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255, 255, 255, 0.5)",
         },
       },
       axisLabel: {
-        fontSize: 10,
+        fontSize: 12,
+        color: "rgba(255, 255, 255, 0.7)",
       },
     },
     yAxis: {
       type: "value",
-      name: "浓度",
+      name: "浓度(mg/L)",
       nameTextStyle: {
-        color: "rgba(255,255,255,0.5)",
+        color: "rgba(255, 255, 255, 0.7)",
+        fontSize: 12,
+        padding: [0, 30, 0, 0],
       },
       axisLine: {
+        show: true,
         lineStyle: {
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255, 255, 255, 0.5)",
         },
       },
       splitLine: {
         lineStyle: {
-          color: "rgba(255,255,255,0.1)",
+          color: "rgba(255, 255, 255, 0.1)",
+          type: "dashed",
         },
       },
       axisLabel: {
-        fontSize: 10,
+        fontSize: 12,
+        color: "rgba(255, 255, 255, 0.7)",
+        formatter: "{value}",
       },
     },
     series: [
@@ -1029,11 +1139,11 @@ const initNh3nChart = () => {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: "rgba(255,165,2,0.3)",
+              color: "rgba(255, 165, 2, 0.3)",
             },
             {
               offset: 1,
-              color: "rgba(255,165,2,0)",
+              color: "rgba(255, 165, 2, 0)",
             },
           ]),
         },
@@ -1064,14 +1174,22 @@ const initCodChart = () => {
   if (!codChart.value) return;
   const chart = echarts.init(codChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
+      axisPointer: {
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
+      },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -1155,23 +1273,22 @@ const initGasChart = () => {
   if (!gasChart.value) return;
   const chart = echarts.init(gasChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "shadow",
-      },
-    },
-    legend: {
-      data: ["甲烷", "一氧化碳", "硫化氢", "氧气"],
-      textStyle: {
-        color: "#fff",
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
       },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -1311,23 +1428,22 @@ const initPowerChart = () => {
   if (!powerChart.value) return;
   const chart = echarts.init(powerChart.value);
   const option = {
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "shadow",
-      },
-    },
-    legend: {
-      data: ["日用电量"],
-      textStyle: {
-        color: "#fff",
+        type: "line",
+        lineStyle: {
+          color: "rgba(0, 255, 255, 0.3)",
+          width: 1,
+        },
       },
     },
     grid: {
-      top: "10%",
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      top: 50,
+      left: 60,
+      right: 20,
+      bottom: 30,
       containLabel: true,
     },
     xAxis: {
@@ -1775,6 +1891,20 @@ const updateCharts = () => {
       margin-bottom: 15px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      :deep(.el-button) {
+        padding: 0;
+        height: auto;
+        font-size: 14px;
+        color: rgba(0, 255, 255, 0.8);
+
+        &:hover {
+          color: #00ffff;
+        }
+      }
     }
 
     .chart-container {
@@ -1843,50 +1973,96 @@ const updateCharts = () => {
 
   .device-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 10px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(min-content, auto);
+    gap: 12px;
+    padding: 15px;
+    min-height: 200px;
 
     .device-item {
       background: rgba(0, 30, 60, 0.3);
-      padding: 15px;
+      border: 1px solid rgba(0, 255, 255, 0.1);
       border-radius: 8px;
-      text-align: center;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
       transition: all 0.3s ease;
 
       &:hover {
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        border-color: rgba(0, 255, 255, 0.5);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+
+        .icon {
+          transform: scale(1.1);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
       }
 
       .icon {
-        font-size: 24px;
-        margin-bottom: 10px;
+        font-size: 28px;
+        padding: 10px;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.1);
         color: #00ffff;
+        transition: all 0.3s ease;
       }
 
       .name {
         font-size: 14px;
-        margin-bottom: 5px;
+        color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-align: center;
       }
 
       .device-info {
-        font-size: 12px;
-        color: #999;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 4px;
+        font-size: 12px;
+        color: #999;
+
+        span {
+          display: block;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       &.normal {
-        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-color: rgba(0, 255, 0, 0.3);
+        .icon {
+          color: #00ff00;
+          background: rgba(0, 255, 0, 0.1);
+        }
       }
 
       &.warning {
-        border: 1px solid rgba(255, 255, 0, 0.3);
+        border-color: rgba(255, 255, 0, 0.3);
+        .icon {
+          color: #ffff00;
+          background: rgba(255, 255, 0, 0.1);
+        }
       }
 
       &.error {
-        border: 1px solid rgba(255, 0, 0, 0.3);
+        border-color: rgba(255, 0, 0, 0.3);
+        .icon {
+          color: #ff0000;
+          background: rgba(255, 0, 0, 0.1);
+        }
       }
     }
   }
@@ -2102,17 +2278,12 @@ const updateCharts = () => {
   }
 
   .nh3n-chart,
-  .cod-chart {
-    height: 200px;
-    .chart {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
+  .cod-chart,
   .gas-chart,
   .power-chart {
-    height: 200px;
+    height: 300px;
+    margin: 20px 0;
+
     .chart {
       width: 100%;
       height: 100%;
